@@ -10,11 +10,13 @@ from models.user import User
 from models.amenity import Amenity
 from models import storage
 
+
 @app_views.route('/status', strict_slashes=False)
 def status():
     """ get the status resources """
     obj = {"status": "OK"}
     return jsonify(obj), 200
+
 
 @app_views.route("/stats", strict_slashes=False, methods=['GET'])
 def stats():

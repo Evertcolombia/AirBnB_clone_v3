@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" Views to index resoyrce for components"""
 from flask import jsonify
 from api.v1.views import app_views
 from models.city import City
@@ -11,6 +12,7 @@ from models import storage
 
 @app_views.route('/status', strict_slashes=False)
 def status():
+    """ get the status resources """
     obj = {"status": "OK"}
     return jsonify(obj), 200
 

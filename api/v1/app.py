@@ -14,10 +14,12 @@ app.register_blueprint(app_views)
 cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
+
 @app.teardown_appcontext
 def deardown_db(exception):
     """ closes storage sesson on teardown"""
     storage.close()
+
 
 @app.errorhandler(404)
 def not_found(error):

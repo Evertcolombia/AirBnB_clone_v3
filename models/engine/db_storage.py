@@ -74,3 +74,33 @@ class DBStorage:
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
+
+    def get(self, cls, id):
+        """
+        get element instance from quey based on the id if the class
+        is none
+            args:
+                @cls: class name
+                @id: id to compare and get instance
+        """
+        instances_query = self.all(cls)
+        match = {}
+
+        for key, value in instances_query.items():
+            if value.id == id:
+                match[key] = value
+                return match[key]
+        return None
+
+    def count(self, cls=None):
+        """
+        count totsal of instances from dbstorage
+        args:
+            @cls: class name
+        """
+        if cls in classes.keys():
+           all_instances = self.all(cls)
+           return len(all_instances)
+        else:
+           all_instances = self.all()
+           return len(all_instances)

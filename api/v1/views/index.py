@@ -23,6 +23,6 @@ def stats():
         'amenities': 0, 'cities': 0, 'places': 0,
         'reviews': 0, 'states': 0, 'users': 0}
 
-    for key, value in all_cls.items():
-        value = storage.count(key)
+    for key, values in all_cls.items():
+        values = storage.count(key)
     return jsonify(all_cls), 200

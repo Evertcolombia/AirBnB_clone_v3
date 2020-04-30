@@ -13,11 +13,11 @@ from models.state import State
 def state(state_id=None):
     """ Retrieves State obj """
     if state_id is None:
-        states = storage.all("State")
+        states = storage.all(State)
         my_states = [value.to_dict() for key, value in states.items()]
         return jsonify(my_states)
 
-    my_states = storage.get("State", state_id)
+    my_states = storage.get(State, state_id)
     if my_states is not None:
         return jsonify(my_states.to_dict())
     abort(404)
@@ -27,7 +27,7 @@ def state(state_id=None):
 def delete_states(stat_id):
     """ Deletes a State obj based on its' id """
 
-    my_state = storage.get("State", stat_id)
+    my_state = storage.get(State, stat_id)
     if my_state is None:
         abort(404)
     storage.delete(my_state)
@@ -37,7 +37,9 @@ def delete_states(stat_id):
 
 @app_views.route('/states', methods=["POST"], strict_slashes=False)
 def post_states():
-    """ Creates a State """
+    """
+    Creates a State
+    """
     content = request.get_json()
     if content is None:
         return (jsonify({"error": "Not a JSON"}), 400)

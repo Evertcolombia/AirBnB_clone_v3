@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ Views to index resoyrce for components"""
-from flask import jsonify
+from flask import jsonify, Blueprint, Flask
 from api.v1.views import app_views
 from models.city import City
 from models.place import Place
@@ -14,17 +14,26 @@ from models import storage
 @app_views.route('/status', strict_slashes=False)
 def status():
     """ get the status resources """
-    obj = {"status": "OK"}
-    return jsonify(obj), 200
-
+    return jsonify({"status": "OK"})
 
 @app_views.route("/stats", strict_slashes=False, methods=['GET'])
 def stats():
-    """ the all stats """
-    all_cls = {
-        'amenities': 0, 'cities': 0, 'places': 0,
-        'reviews': 0, 'states': 0, 'users': 0}
+    """
+    retrieves the number of each objects by type
+    """
+    my_amenity = storage.count("Amenity")
+    my_cities = storage.count("City")
+    my_places = storage.count("Place")
+    my_reviews = storage.count("Review")
+    my_states = storage.count("State")
+    my_users = storage.count("User")
+    return jsonify(amenities=my_amenity,
+                   cities=my_cities,
+                   places=my_places,
+                   reviews=my_reviews,
+                   states=my_states,
+                   users=my_users)
 
-    for key, values in all_cls.items():
-        values = storage.count(key)
-    return jsonify(all_cls), 200
+
+if __name__ == '__main__':
+    pass

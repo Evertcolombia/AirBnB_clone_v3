@@ -71,31 +71,14 @@ class FileStorage:
 
     def get(self, cls, id):
         """
-        Returns object of specific class based on the id
-        args:
-            @cls: class name
-            @id: id instance to match
+        get element instance from query based on the id if the class
         """
-        if cls is not None:
-            cls_instances = self.all(cls)
-            match = {}
-            for key, value in cls_instances.items():
-                if value.id == id:
-                    match[key] = value
-                    return match
-            return None
+        list_class = self.all(cls)
+        class_id = cls.__name__ + '.' + id
+        return list_class.get(class_id)
 
     def count(self, cls=None):
         """
-        get the lenght of the total os instances from a specific
-        class or the total of instances
-            args:
-                @cls: class name
+        count totsal of instances from dbstorage
         """
-        counter = 0
-        if cls in classes.keys():
-            all_instances = self.all(cls)
-        else:
-            all_instances = self.all()
-        counter = len(all_instances)
-        return counter
+        return len(self.all(cls))

@@ -77,30 +77,14 @@ class DBStorage:
 
     def get(self, cls, id):
         """
-        get element instance from quey based on the id if the class
-        is none
-            args:
-                @cls: class name
-                @id: id to compare and get instance
+        get element instance from query based on the id if the class
         """
-        instances_query = self.all(cls)
-        match = {}
-
-        for key, value in instances_query.items():
-            if value.id == id:
-                match[key] = value
-                return match[key]
-        return None
+        list_class = self.all(cls)
+        class_id = cls + '.' + id
+        return list_class.get(class_id)
 
     def count(self, cls=None):
         """
         count totsal of instances from dbstorage
-        args:
-            @cls: class name
         """
-        if cls in classes.keys():
-           all_instances = self.all(cls)
-           return len(all_instances)
-        else:
-           all_instances = self.all()
-           return len(all_instances)
+        return len(self.all(cls))

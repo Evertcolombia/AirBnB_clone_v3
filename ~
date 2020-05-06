@@ -80,12 +80,12 @@ class DBStorage:
         get element instance from query based on the id if the class
         """
         list_class = self.all(cls)
-        class_id = '{}.{}'.format(cls.__name__, id)
+        class_id = '{}.{}'.format(cls, id)
+        print(list_class.get(class_id))
         return list_class.get(class_id)
 
     def count(self, cls=None):
         """
         count totsal of instances from dbstorage
         """
-        len_all = len(self.all(cls))
-        return len_all
+        return len(self.all(cls))

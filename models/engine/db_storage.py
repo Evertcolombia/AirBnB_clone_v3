@@ -87,4 +87,5 @@ class DBStorage:
         """
         count totsal of instances from dbstorage
         """
-        return len(self.all(cls))
+        len_all = len(self.all(cls))
+        return len_all
